@@ -1,16 +1,17 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: CI
 
 on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  AUTH_TOKEN: TEST_DISCORD_AUTH_TOKEN
+
 jobs:
-  build:
+  continuous-integration:
     if: github.event.pull_request.head.repo.full_name == github.repository
 
+    name: Run tests
     runs-on: ubuntu-latest
 
     steps:
@@ -34,4 +35,4 @@ jobs:
           args: --recursive --in-place --aggressive .
       - name: Test with pytest
         run: |
-          pytest tests/ -v --cov=app
+          python -m pytest tests/ -v --cov=app
