@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+  push:
+    branches: main
+
 env:
   AUTH_TOKEN: TEST_DISCORD_AUTH_TOKEN
 
