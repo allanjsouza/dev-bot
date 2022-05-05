@@ -50,13 +50,15 @@ pip install -e .['dev']
 
 ```sh
 # Run tests
-pytest tests/
+pytest tests/ -v # or `make test`
 
 # Run tests & coverage
-pytest tests/ -v --cov=app # `make test`
+pytest tests/ -v --cov=app
 
 # Coverage report
 coverage html
+
+# Tip: use `make coverage` to run tests, coverage and browse the coverage report
 ```
 
 ## License
