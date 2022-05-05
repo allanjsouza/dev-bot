@@ -1,4 +1,17 @@
 {
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
-  "python.envFile": "${workspaceFolder}/.env"
+  "python.envFile": "${workspaceFolder}/.env",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__/": true,
+    "*.egg-info": true,
+    ".pytest_cache/": true,
+    "htmlcov/": true,
+    ".coverage": true
+  }
 }

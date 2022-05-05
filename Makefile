@@ -15,7 +15,12 @@ install:
 	pip install -e .['dev']
 
 test:
-	pytest tests/ -v --cov=app
+	pytest tests/ -v
+
+coverage:
+	@ pytest tests/ -v --cov=app
+	@ coverage html
+	@ python scripts/coverage_report.py
 
 release:
 	@ ./scripts/release.sh
