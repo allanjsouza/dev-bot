@@ -23,4 +23,5 @@ coverage:
 	@ python scripts/coverage_report.py
 
 release:
+	@ chmod +x scripts/release.sh
 	@ ./scripts/release.sh

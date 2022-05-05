@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-
 from discord.ext import commands
 
 load_dotenv()
@@ -24,6 +23,5 @@ def load_extensions(bot):
 
 load_extensions(__bot := commands.Bot(CMD_PREFIX))
 
-
-def run():
+if __name__ == "__main__":
     __bot.run(DISCORD_TOKEN)
