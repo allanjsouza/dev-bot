@@ -6,7 +6,7 @@ app = Flask("")
 
 @app.route("/")
 def root():
-    return {"message": "Hello from Mechagodzilla 🤖🦖"}
+    return {"message": "Hello from dev-bot 🤖"}
 
 
 def run():
