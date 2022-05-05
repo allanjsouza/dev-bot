@@ -33,7 +33,8 @@ $ cp example.env .env
 Add yout own Discord `AUTH_TOKEN` (mandatory) and optionally setup your `COMMAND_PREFIX`. Then you should be able to start the bot by running:
 
 ```sh
-python app
+# Start the bot
+python app/bot.py
 ```
 
 ### Development
