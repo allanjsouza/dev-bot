@@ -27,7 +27,7 @@ These are the requirements for the bot.
 Setup your `.env` configuration file:
 
 ```sh
-$ cp .env.example .env
+$ cp example.env .env
 ```
 
 Add yout own Discord `AUTH_TOKEN` (mandatory) and optionally setup your `COMMAND_PREFIX`. Then you should be able to start the bot by running:
