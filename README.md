@@ -1,5 +1,7 @@
 # 🤖 Mechagodzilla 🦖
 
+[![CI](https://github.com/allanjsouza/mechagodzilla/actions/workflows/ci.yml/badge.svg)](https://github.com/allanjsouza/mechagodzilla/actions/workflows/ci.yml)
+
 ## About
 
 A discord bot built with [discord.py](https://discordpy.readthedocs.io)
