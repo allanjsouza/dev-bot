@@ -1,6 +1,7 @@
-# 🤖 Mechagodzilla 🦖
-
-[![CI](https://github.com/allanjsouza/mechagodzilla/actions/workflows/ci.yml/badge.svg)](https://github.com/allanjsouza/mechagodzilla/actions/workflows/ci.yml)
+<div align="center">
+  <h1><img src="https://user-images.githubusercontent.com/5806540/166961075-66690c37-eb4e-409d-9a5e-2b5799747ef4.png" alt="dev-bot"/> dev-bot</h1>
+  <img src="https://github.com/allanjsouza/dev-bot/actions/workflows/ci.yml/badge.svg" alt="CI"/>
+</div>
 
 ## About
 
@@ -12,7 +13,7 @@ A discord bot built with [discord.py](https://discordpy.readthedocs.io)
 
 - 🗨️ **Talks**: `hi`, `dm`!
 - 💭 **Quotes**: `quote`!
-- **Full list** of commands: [here](https://github.com/allanjsouza/mechagodzilla/blob/master/docs/COMMANDS.md).
+- **Full list** of commands: [here](https://github.com/allanjsouza/dev-bot/blob/master/docs/COMMANDS.md).
 
 ### 🔔 Events
 
@@ -60,4 +61,4 @@ coverage html
 
 ## License
 
-Released under the [MIT](https://github.com/allanjsouza/mechagodzilla/blob/master/LICENSE) license.
+Released under the [MIT](https://github.com/allanjsouza/dev-bot/blob/master/LICENSE) license.
