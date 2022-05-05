@@ -79,7 +79,7 @@ export TEMPLATE="\
 echo && read -p "> Continue with version tag? [Y/n] " -r
 if [[ $REPLY =~ ^[Nn]$ ]]
 then
-  echo "Then you should tag version mannually." && exit 1
+  echo "Then you should tag version mannually." && exit 0
 fi
 changes=$(git cliff --unreleased --strip all)
 git tag -a $version -e -m "Release $version" -m "$changes"
