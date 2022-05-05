@@ -1,9 +1,7 @@
-import logging
-
+from app.bot import CMD_PREFIX
+from utils.logging import logger
 from discord.ext import commands
 from discord.ext.commands.errors import CommandNotFound
-
-from app.bot import CMD_PREFIX
 
 
 class Manager(commands.Cog):
@@ -14,7 +12,7 @@ class Manager(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        logging.info(f"Logged in as {self._bot.user}")
+        logger.info(f"Logged in as {self._bot.user}")
 
     @commands.Cog.listener()
     async def on_message(self, message):
