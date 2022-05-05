@@ -35,4 +35,4 @@ jobs:
           args: --recursive --in-place --aggressive .
       - name: Test with pytest
         run: |
-          pytest tests/ -v --cov=app
+          python -m pytest tests/ -v --cov=app
