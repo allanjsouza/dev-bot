@@ -10,9 +10,9 @@ def read(filename):
 
 
 setup(
-    name="mechagodzilla",
+    name="dev-bot",
     version="0.1.0",
-    description="Mechagodzilla discord bot",
+    description="Dev discord bot",
     packages=find_packages(),
     include_package_data=True,
     install_requires=read("requirements.txt"),
