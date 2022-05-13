@@ -1,10 +1,13 @@
-from app.bot import CMD_PREFIX
-from utils.logging import logger
 from discord.ext import commands
-from discord.ext.commands.errors import CommandNotFound
+from discord.ext.commands.errors import CommandNotFound, MissingRequiredArgument
+
+from app.bot import CMD_PREFIX
+from app.utils.logging import logger
+
+HELP_MSG = f"Send `{CMD_PREFIX}help` to get instructions about available commands"
 
 
-class Manager(commands.Cog):
+class Management(commands.Cog):
     """General bot management event listener"""
 
     def __init__(self, bot):
@@ -25,9 +28,13 @@ class Manager(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, CommandNotFound):
-            help = f"{CMD_PREFIX}help"
-            await ctx.send(f"Unknown command. Send `{help}` to get instructions about available commands")
+            await ctx.send(f"Unknown command. {HELP_MSG}")
+        elif isinstance(error, MissingRequiredArgument):
+            await ctx.send(f"Missing argument(s). {HELP_MSG}")
+        else:
+            logger.error(str(error))
+            await ctx.send(f"Sorry but something went wrong 🛠️")
 
 
 def setup(bot):
-    bot.add_cog(Manager(bot))
+    bot.add_cog(Management(bot))
