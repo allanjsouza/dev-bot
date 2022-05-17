@@ -1,11 +1,10 @@
 import os
-from dotenv import load_dotenv
 from discord.ext import commands
 
-load_dotenv()
+from app.config import Config
 
-CMD_PREFIX = os.getenv("COMMAND_PREFIX") or "!"
-DISCORD_TOKEN = os.getenv("AUTH_TOKEN")
+CMD_PREFIX = Config.COMMAND_PREFIX
+DISCORD_TOKEN = Config.AUTH_TOKEN
 EXT_DIRS = ["app.commands", "app.events", "app.tasks"]
 
 
