@@ -30,7 +30,7 @@ echo -n "Fetching main branch..." && git pull -q && echo -e " Done!"
 echo -n "Fetching (remote) tags..." && git fetch --tags -q && echo -e " Done!\n"
 
 # check unreleased changes
-export CONFIG="properties.toml"
+export CONFIG="settings/changelog.toml"
 echo -e "${Cyan}These are the unreleased changes:"
 echo -e "${Green}$(git cliff --unreleased --strip all)${NC}\n"
 
