@@ -1,0 +1,2 @@
+class RepoNotFoundError(Exception):
+    pass
