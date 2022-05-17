@@ -7,9 +7,6 @@ on:
   push:
     branches: main
 
-env:
-  AUTH_TOKEN: TEST_DISCORD_AUTH_TOKEN
-
 jobs:
   continuous-integration:
     if: github.event.pull_request.head.repo.full_name == github.repository
@@ -19,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Setup env
+        run: cp example.env .env
       - name: Tool Versions
         uses: marocchino/tool-versions-action@v1.1.0
         id: tool_versions

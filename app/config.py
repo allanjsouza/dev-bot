@@ -11,6 +11,10 @@ class AppConfigError(Exception):
 class AppConfig:
     AUTH_TOKEN: str
     COMMAND_PREFIX: str = "!"
+    SCM_PROVIDER: str = "github"
+    GITHUB_BASE_URL: str = "https://github.com"
+    GITHUB_PAT: str
+    GITHUB_ORG: str
 
     """
     Map environment variables to class fields according to these rules:
