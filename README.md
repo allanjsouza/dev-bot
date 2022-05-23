@@ -1,6 +1,7 @@
 <h1><img src="https://user-images.githubusercontent.com/5806540/166961075-66690c37-eb4e-409d-9a5e-2b5799747ef4.png" alt="dev-bot"/> dev-bot</h1>
 
 [![CI](https://github.com/allanjsouza/dev-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/allanjsouza/dev-bot/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/allanjsouza/dev-bot/badge.svg?branch=main)](https://coveralls.io/github/allanjsouza/dev-bot?branch=main)
 
 ## About
 
