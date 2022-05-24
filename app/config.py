@@ -15,6 +15,8 @@ class AppConfig:
     GITHUB_BASE_URL: str = "https://github.com"
     GITHUB_PAT: str
     GITHUB_ORG: str
+    YOUTRACK_TOKEN: str
+    YOUTRACK_BASE_URL: str
 
     """
     Map environment variables to class fields according to these rules:

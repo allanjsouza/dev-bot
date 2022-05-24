@@ -14,3 +14,9 @@
 | Command | description                                 | Usage   |
 | ------- | ------------------------------------------- | ------- |
 | quote   | Get a random quote from influential figures | `quote` |
+
+## YouTrack
+
+| Command | description                                 | Usage   |
+| ------- | ------------------------------------------- | ------- |
+| issues  | Get issues youtrack                         | `issues`|
