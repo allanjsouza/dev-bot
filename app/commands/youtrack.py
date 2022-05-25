@@ -1,5 +1,6 @@
 from discord import Embed
 from discord.ext import commands
+from numpy import True_
 from app.services.youtrack import handle_data
 from app.services.youtrack import http
 
@@ -15,27 +16,38 @@ class YouTrack(commands.Cog):
         await self.greet(ctx, ctx.author)
 
     async def greet(self, ctx, fellow):
-        test = http.url("7-12")
+        async with ctx.typing():
+            test = http.url("7-12")
 
-        story_points = handle_data.get_story_point(http.get(test))
+            story_points = handle_data.get_story_point(http.get(test))
 
-        issues_count = handle_data.issues_count(http.get(test))
+            issues_count = handle_data.issues_count(http.get(test))
 
-        critical_level = handle_data.critical_level(http.get(test))
+            critical_level = handle_data.critical_level(http.get(test))
 
-        embed = Embed()
+            timer_solver_bugs = handle_data.solve_time_bugs(http.get(test))
 
-        embed.color = 0x00FF00
+            embed = Embed()
 
-        embed.add_field(name="**Bugs By Priority** :ocean:",
-                        value=critical_level)
+            embed.color = 0x00FF00
 
-        embed.add_field(name="**Bugs in Week** :cloud_rain:",
-                        value=issues_count)
+            embed.add_field(name="**Story Point** :sunny:",
+                            value=f"Total: {story_points}",
+                            inline=False)
 
-        embed.add_field(name="**Story Point** :sunny:", value=story_points)
+            embed.add_field(name="**Bugs In Week** :cloud_rain:",
+                            value=f"Total: {issues_count}",
+                            inline=False)
 
-        embed.set_footer(text="YouTrack Issues")
+            embed.add_field(name="**Bugs Production By Priority** :ocean:",
+                            value=critical_level,
+                            inline=False)
+
+            embed.add_field(name="**Average Time Solve Bugs in Production** :timer:",
+                            value=timer_solver_bugs,
+                            inline=False)
+
+            embed.set_footer(text="YouTrack Issues")
 
         await ctx.send(embed=embed)
 
