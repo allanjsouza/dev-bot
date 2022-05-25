@@ -1,6 +1,5 @@
 from discord import Embed
 from discord.ext import commands
-from numpy import True_
 from app.services.youtrack import handle_data
 from app.services.youtrack import http
 
