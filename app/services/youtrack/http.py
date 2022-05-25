@@ -8,11 +8,11 @@ def get(query_url):
     headers["Accept"] = "application/json"
     headers["Authorization"] = "Bearer " + Config.YOUTRACK_TOKEN
 
-    results = requests.get(Config.YOUTRACK_BASE_URL +
-                           query_url, headers=headers).json()
+    response = requests.get(Config.YOUTRACK_BASE_URL + query_url, headers=headers).json()
+    if response["issues"]:
+        return response["issues"]
+    raise RuntimeError(f"HTTP connection error - {response.raw}")
 
-    return results["issues"]
 
-
-def url(query_id):
+def url(query_id: str):
     return f"/savedQueries/{query_id}?fields=issues(idReadable,id,created,resolved,summary,customFields(name,value(name)),project(name))"
