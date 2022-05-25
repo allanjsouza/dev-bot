@@ -42,7 +42,7 @@ def critical_level(issues):
 def solve_time_bugs(issues):
     days, hours, minutes, seconds, total_issues = __solve_time_bugs(issues)
 
-    return f"Days:{int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\nSeconds: {int(seconds)}\n**Total: {total_issues}**"
+    return f"Days: {int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\nSeconds: {int(seconds)}\n**Total: {total_issues}**"
 
 
 def __story_points(issue):
