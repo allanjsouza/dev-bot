@@ -1,48 +1,59 @@
 from datetime import datetime, timedelta
 
 
-def get_story_point(issues):
+def get_story_point(issues: list):
     list_result = 0
-    for issue in issues:
-        list_result += __story_points(issue)
-
-    return list_result
-
-
-def issues_count(issues):
-    return issues.__len__()
-
-
-def critical_level(issues):
-    total_issues = 0
-    minor = 0
-    normal = 0
-    major = 0
-    critical = 0
-
-    for issue in issues:
-        total_issues += 1
-        result = __critical_level(issue)
-
-        if result == "Normal":
-            normal += 1
-
-        elif result == "Major":
-            major += 1
-
-        elif result == "Critical":
-            critical += 1
-
-        else:
-            minor += 1
-
-    return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n **Total: {total_issues}**"
+    try:
+        if issues[0]["customFields"] != KeyError:
+            for issue in issues:
+                list_result += __story_points(issue)
+            return int(list_result)
+    except BaseException:
+        __error_message(issues)
 
 
-def solve_time_bugs(issues):
-    days, hours, minutes, seconds, total_issues = __solve_time_bugs(issues)
+def issues_count(issues: list):
+    if isinstance(issues, list):
+        return issues.__len__()
+    __error_message(issues)
 
-    return f"Days: {int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\nSeconds: {int(seconds)}\n**Total: {total_issues}**"
+
+def critical_level(issues: list):
+    try:
+        total_issues = 0
+        minor = 0
+        normal = 0
+        major = 0
+        critical = 0
+
+        for issue in issues:
+            total_issues += 1
+            result = __critical_level(issue)
+
+            if result == "Normal":
+                normal += 1
+            elif result == "Major":
+                major += 1
+            elif result == "Critical":
+                critical += 1
+            else:
+                minor += 1
+
+        return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n **Total: {total_issues}**"
+    except BaseException:
+        __error_message(issues)
+
+
+def solve_time_bugs(issues: list):
+    try:
+        days, hours, minutes, seconds, total_issues = __solve_time_bugs(issues)
+        return f"Days: {int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\n**Total: {total_issues}**"
+    except BaseException:
+        __error_message(issues)
+
+
+def __error_message(arg):
+    raise RuntimeError(f"Invalid Arguments: {arg}")
 
 
 def __story_points(issue):
@@ -65,25 +76,26 @@ def __solve_time_bugs(issues):
     count_issue = 0
 
     for issue in issues:
-        created_at = datetime.strptime(__unix_to_utc(issue["created"]), "%Y-%m-%d %H:%M")
-        resolved_at = datetime.strptime(__unix_to_utc(issue["resolved"]), "%Y-%m-%d %H:%M")
+        created_at = datetime.strptime(
+            __unix_to_utc(issue["created"]), "%Y-%m-%d %H:%M"
+        )
+        resolved_at = datetime.strptime(
+            __unix_to_utc(issue["resolved"]), "%Y-%m-%d %H:%M"
+        )
 
         count_issue += 1
-
-        time_result =  resolved_at - created_at
-
+        time_result = resolved_at - created_at
         seconds += time_result.days * 24 * 3600 + time_result.seconds
 
-    seconds = seconds/count_issue
-
+    seconds = seconds / count_issue
     minutes, seconds_ = divmod(seconds, 60)
-
     hours, minutes = divmod(minutes, 60)
-
     days, hours = divmod(hours, 24)
 
     return (days, hours, minutes, seconds_, count_issue)
 
 
 def __unix_to_utc(unix):
-    return (datetime.fromtimestamp(unix / 1000.0) - timedelta(hours=-3)).isoformat(" ", "minutes")
+    return (datetime.fromtimestamp(unix / 1000.0) - timedelta(hours=-3)).isoformat(
+        " ", "minutes"
+    )
