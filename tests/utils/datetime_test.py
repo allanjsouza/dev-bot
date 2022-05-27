@@ -89,7 +89,7 @@ def test_pretty_date_month_ago():
 
 def test_pretty_date_months_ago():
     for months in range(2, 12):
-        past_time = datetime.utcnow() - timedelta(days=months*30)
+        past_time = datetime.utcnow() - timedelta(days=months * 30)
         assert pretty_date(past_time) == f"{months} months ago"
 
 
@@ -100,5 +100,5 @@ def test_pretty_date_year_ago():
 
 def test_pretty_date_years_ago():
     for years in range(2, 3):
-        past_time = datetime.utcnow() - timedelta(days=years*365)
+        past_time = datetime.utcnow() - timedelta(days=years * 365)
         assert pretty_date(past_time) == f"{years} years ago"

@@ -50,13 +50,13 @@ class PullRequest:
         return self
 
     def add_draft(self, draft: bool):
-        if not type(draft) == bool:
+        if not isinstance(draft, bool):
             raise TypeError("it must be of type 'bool'")
         self.draft = draft
         return self
 
     def add_merged(self, merged: bool):
-        if not type(merged) == bool:
+        if not isinstance(merged, bool):
             raise TypeError("it must be of type 'bool'")
         self.merged = merged
         return self
@@ -66,13 +66,13 @@ class PullRequest:
         return self
 
     def add_created_at(self, created_at: datetime):
-        if not type(created_at) == datetime:
+        if not isinstance(created_at, datetime):
             raise TypeError("it must be of type 'datetime'")
         self.created_at = created_at
         return self
 
     def add_updated_at(self, updated_at: datetime):
-        if not type(updated_at) == datetime:
+        if not isinstance(updated_at, datetime):
             raise TypeError("it must be of type 'datetime'")
         self.updated_at = updated_at
         return self

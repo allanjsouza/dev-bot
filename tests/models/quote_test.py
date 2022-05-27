@@ -1,4 +1,5 @@
 import pytest
+
 from app.models.quote import Quote
 
 

@@ -1,5 +1,7 @@
-import pytest
 from datetime import datetime
+
+import pytest
+
 from app.models.pull_request import PullRequest, User
 
 

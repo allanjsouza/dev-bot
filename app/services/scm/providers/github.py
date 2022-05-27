@@ -1,11 +1,11 @@
 from typing import List
+
 from github import Github, UnknownObjectException
 
 from app.config import Config
+from app.models.pull_request import PullRequest, User
 from app.services.scm.errors import RepoNotFoundError
 from app.services.scm.providers.provider import ScmProvider
-from app.models.pull_request import PullRequest, User
-
 
 GITHUB_BASE_URL = Config.GITHUB_BASE_URL
 GITHUB_PAT = Config.GITHUB_PAT
@@ -37,16 +37,18 @@ class GithubProvider(ScmProvider):
         return result
 
     def build_pull_request(self, repo_name, pull) -> PullRequest:
-        result = PullRequest(repo_name, pull.number, pull.title)\
-            .add_author(self.build_user(pull.user))\
-            .add_state(pull.state)\
-            .add_merging_state(pull.mergeable_state)\
-            .add_body(pull.body)\
-            .add_draft(pull.draft)\
-            .add_merged(pull.merged)\
-            .add_url(pull.html_url)\
-            .add_created_at(pull.created_at)\
+        result = (
+            PullRequest(repo_name, pull.number, pull.title)
+            .add_author(self.build_user(pull.user))
+            .add_state(pull.state)
+            .add_merging_state(pull.mergeable_state)
+            .add_body(pull.body)
+            .add_draft(pull.draft)
+            .add_merged(pull.merged)
+            .add_url(pull.html_url)
+            .add_created_at(pull.created_at)
             .add_updated_at(pull.updated_at)
+        )
 
         for assignee in pull.assignees:
             result.add_assignee(self.build_user(assignee))
@@ -61,7 +63,7 @@ class GithubProvider(ScmProvider):
         return User(
             name=user.login,
             url=f"{GITHUB_BASE_URL}/{user.login}",
-            icon_url=f"{GITHUB_BASE_URL}/{user.login}.png"
+            icon_url=f"{GITHUB_BASE_URL}/{user.login}.png",
         )
 
     def repo_full_name(self, repo_name):

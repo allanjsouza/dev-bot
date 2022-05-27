@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+
 from discord import Embed
 
 from app.models.pull_request import PullRequest, User
@@ -7,12 +8,18 @@ from app.utils.datetime import pretty_date
 
 
 def generate_embed_from(pull: PullRequest) -> Embed:
-    embed = Embed(title=__title(pull), color=__color(pull), url=pull.url)\
-        .set_author(name=pull.author.name, url=pull.author.url, icon_url=pull.author.icon_url)\
-        .add_field(name=f"\u200b", value=__description(pull), inline=False)\
-        .add_field(name="Assignees", value=__assignees(pull))\
-        .add_field(name="Reviewers", value=__reviewers(pull))\
-        .set_footer(text=f"{__footer_emoji(pull)} opened {pretty_date(pull.created_at)} (last updated {pull.updated_at})")
+    embed = (
+        Embed(title=__title(pull), color=__color(pull), url=pull.url)
+        .set_author(
+            name=pull.author.name, url=pull.author.url, icon_url=pull.author.icon_url
+        )
+        .add_field(name=f"\u200b", value=__description(pull), inline=False)
+        .add_field(name="Assignees", value=__assignees(pull))
+        .add_field(name="Reviewers", value=__reviewers(pull))
+        .set_footer(
+            text=f"{__footer_emoji(pull)} opened {pretty_date(pull.created_at)} (last updated {pull.updated_at})"
+        )
+    )
     return embed
 
 
@@ -22,17 +29,17 @@ def __title(pull: PullRequest):
 
 def __color(pull: PullRequest):
     if pull.draft:
-        return 0xb3b3b3
+        return 0xB3B3B3
     if pull.merging_state == "clean":
-        return 0x33cc33
+        return 0x33CC33
     if pull.merging_state == "dirty":
-        return 0xff9900
+        return 0xFF9900
     if pull.merging_state == "blocked":
-        return 0xff3300
+        return 0xFF3300
     if pull.merging_state == "unstable":
-        return 0xbf8040
+        return 0xBF8040
     if pull.merging_state == "unknown":
-        return 0x4d4d4d
+        return 0x4D4D4D
 
 
 def __description(pull: PullRequest):
@@ -58,9 +65,9 @@ def __reviewers(pull: PullRequest):
 
 def __footer_emoji(pull: PullRequest):
     difftime = datetime.utcnow() - pull.created_at
-    if difftime.days == 0 and difftime.seconds < 60*15:
+    if difftime.days == 0 and difftime.seconds < 60 * 15:
         return "⚡"
-    if difftime.days == 0 and difftime.seconds < 60*60:
+    if difftime.days == 0 and difftime.seconds < 60 * 60:
         return "⏳"
     if difftime.days < 1:
         return "🕐"
