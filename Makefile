@@ -25,3 +25,8 @@ coverage:
 release:
 	@ chmod +x scripts/release.sh
 	@ ./scripts/release.sh
+
+format:
+	@ isort .
+	@ autopep8 --recursive --in-place --aggressive .
+	@ black .
