@@ -5,7 +5,9 @@ def get_story_point(issues: list):
     try:
         if issues[0]["customFields"] != KeyError:
             for issue in issues:
-                list_result += __story_points(issue)
+                result = __story_points(issue)
+                if result != None:
+                    list_result += result
             return int(list_result)
     except BaseException:
         __error_message(issues)
@@ -38,7 +40,9 @@ def critical_level(issues: list):
             total_issues += 1
             result = __critical_level(issue)
 
-            if result == "3 - Normal":
+            if result == "4 - Minor":
+                minor += 1
+            elif result == "3 - Normal":
                 normal += 1
             elif result == "2 - Major":
                 major += 1
@@ -46,11 +50,12 @@ def critical_level(issues: list):
                 critical += 1
             elif result == "0 - Show-stopper":
                 stopper += 1
-            else:
-                minor += 1
 
             if stopper != 0:
                 stopper_message = f"Stopper: {stopper}\n"
+
+        if minor == 0 and normal == 0 and major == 0 and critical == 0 and stopper == 0:
+            return 0
 
         return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n{stopper_message}**Total:** {total_issues}"
     except BaseException:
@@ -73,20 +78,15 @@ def __error_message(arg):
     raise RuntimeError(f"Invalid Arguments: {arg}")
 
 
-def __story_points(issue):
+def __story_points(issue: list):
     for item in issue["customFields"]:
         if item["name"] == "Story points":
-            if item["value"] is None:
-                return 0
-            else:
-                return int(item["value"])
+            return int(item["value"])
 
 
 def __critical_level(issue):
     for item in issue["customFields"]:
         if item["name"] == "Priority":
-            if item["value"]["name"] is None:
-                return
             return item["value"]["name"]
 
 

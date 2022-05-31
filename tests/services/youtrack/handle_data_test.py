@@ -35,6 +35,14 @@ class HandleDataTest(TestCase):
         result = handle_data.get_story_point(valid_arguments())
         assert result == 10
 
+    def test_get_story_point_invalid_arguments_value(self):
+        args = [
+            {"customFields": [{"value": None, "name": "Story Point"}]},
+            {"customFields": [{"value": None, "name": "Story Point"}]},
+        ]
+        result = handle_data.get_story_point(args)
+        assert result == 0
+
     def test_get_story_point_invalid_arguments(self):
         with pytest.raises(RuntimeError) as error:
             handle_data.get_story_point(invalid_arguments())
@@ -51,25 +59,34 @@ class HandleDataTest(TestCase):
 
     def test_critical_level_valid_arguments_one_value(self):
         args = [
+            {"customFields": [{"value": {"name": "3 - Normal"}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": "2 - Major"}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": "1 - Critical"}, "name": "Priority"}]},
             {
-                "customFields": [{"value": {"name": "3 - Normal"}, "name": "Priority"}]
+                "customFields": [
+                    {"value": {"name": "0 - Show-stopper"}, "name": "Priority"}
+                ]
             },
-            {
-                "customFields": [{"value": {"name": "2 - Major"}, "name": "Priority"}]
-            },
-            {
-                "customFields": [{"value": {"name": "1 - Critical"}, "name": "Priority"}]
-            },
-            {
-                "customFields": [{"value": {"name": "0 - Show-stopper"}, "name": "Priority"}]
-            },
-            {
-                "customFields": [{"value": {"name": "Minor"}, "name": "Priority"}]
-            }
+            {"customFields": [{"value": {"name": "4 - Minor"}, "name": "Priority"}]},
         ]
 
         result = handle_data.critical_level(args)
-        assert result == "Minor: 1\nNormal: 1\nMajor: 1\nCritical: 1\nStopper: 1\n**Total:** 5"
+        assert (
+            result
+            == "Minor: 1\nNormal: 1\nMajor: 1\nCritical: 1\nStopper: 1\n**Total:** 5"
+        )
+
+    def test_critical_level_invalid_value_name(self):
+        args = [
+            {"customFields": [{"value": {"name": None}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": None}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": None}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": None}, "name": "Priority"}]},
+            {"customFields": [{"value": {"name": None}, "name": "Priority"}]},
+        ]
+
+        result = handle_data.critical_level(args)
+        assert result == 0
 
     def test_critical_level_invalid_arguments(self):
         with pytest.raises(RuntimeError) as error:
@@ -77,9 +94,15 @@ class HandleDataTest(TestCase):
         error_msg = error.exconly(True)
         assert_error(error_msg)
 
-    def test_solve_time_bugs_valid_arguments(self):
-        result = handle_data.solve_time_bugs(valid_arguments())
-        assert result == "Days: 1\nHours: 4\nMinutes: 52\n**Total: 3**"
+    def test_solve_time_bugs_valid_arguments_and_invalids(self):
+        args = [
+            {"resolved": 1633444862821, "created": 1653310971452},
+            {"resolved": 1653443862821, "created": 1653340971452},
+            {"resolved": None, "created": 1653640971452},
+        ]
+
+        result = handle_data.solve_time_bugs(args)
+        assert result == "Days: -115\nHours: 15\nMinutes: 7\n**Total: 2**"
 
     def test_solve_time_bugs_valid_arguments(self):
         result = handle_data.solve_time_bugs([])

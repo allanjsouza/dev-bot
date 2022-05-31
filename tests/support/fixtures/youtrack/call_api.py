@@ -8,7 +8,7 @@ def valid_response_data():
                 "resolved": 1653444862821,
                 "customFields": [
                     {
-                        "value": {"name": "Minor", "$type": "EnumBundleElement"},
+                        "value": {"name": "4 - Minor", "$type": "EnumBundleElement"},
                         "name": "Priority",
                         "$type": "SingleEnumIssueCustomField",
                     },
@@ -69,7 +69,7 @@ def valid_response_data():
                 "resolved": 1653444862821,
                 "customFields": [
                     {
-                        "value": {"name": "Minor", "$type": "EnumBundleElement"},
+                        "value": {"name": "4 - Minor", "$type": "EnumBundleElement"},
                         "name": "Priority",
                         "$type": "SingleEnumIssueCustomField",
                     },
@@ -130,7 +130,7 @@ def valid_response_data():
                 "resolved": 1653444862821,
                 "customFields": [
                     {
-                        "value": {"name": "Minor", "$type": "EnumBundleElement"},
+                        "value": {"name": "4 - Minor", "$type": "EnumBundleElement"},
                         "name": "Priority",
                         "$type": "SingleEnumIssueCustomField",
                     },
