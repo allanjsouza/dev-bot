@@ -21,13 +21,11 @@ def assert_error(error):
 
 class HandleDataTest(TestCase):
     def test_issues_count_valide_list(self):
-        assert handle_data.issues_count(valid_arguments()) == 3
+        assert handle_data.issues_count(valid_arguments()) == "**Total:**  3"
 
     def test_issues_count_invalide(self):
-        with pytest.raises(RuntimeError) as error:
-            handle_data.issues_count(invalid_arguments())
-        error_msg = error.exconly(True)
-        assert_error(error_msg)
+        result = handle_data.issues_count(invalid_arguments())
+        assert result == None
 
     def test_get_story_point_valid_arguments(self):
         result = handle_data.get_story_point(valid_arguments())
@@ -41,7 +39,7 @@ class HandleDataTest(TestCase):
 
     def test_critical_level_valid_arguments(self):
         result = handle_data.critical_level(valid_arguments())
-        assert result == "Minor: 3\nNormal: 0\nMajor: 0\nCritical: 0\n **Total: 3**"
+        assert result == "Minor: 3\nNormal: 0\nMajor: 0\nCritical: 0\n**Total:** 3"
 
     def test_critical_level_invalid_arguments(self):
         with pytest.raises(RuntimeError) as error:
