@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-from tracemalloc import stop
-
 
 def get_story_point(issues: list):
     list_result = 0
@@ -95,18 +93,19 @@ def __critical_level(issue):
 def __solve_time_bugs(issues):
     seconds = 0
     count_issue = 0
-
     for issue in issues:
-        created_at = datetime.strptime(
-            __unix_to_utc(issue["created"]), "%Y-%m-%d %H:%M"
-        )
-        resolved_at = datetime.strptime(
-            __unix_to_utc(issue["resolved"]), "%Y-%m-%d %H:%M"
-        )
+        if issue["resolved"]:
+            created_at = datetime.strptime(
+                __unix_to_utc(issue["created"]), "%Y-%m-%d %H:%M"
+            )
 
-        count_issue += 1
-        time_result = resolved_at - created_at
-        seconds += time_result.days * 24 * 3600 + time_result.seconds
+            resolved_at = datetime.strptime(
+                __unix_to_utc(issue["resolved"]), "%Y-%m-%d %H:%M"
+            )
+
+            count_issue += 1
+            time_result = resolved_at - created_at
+            seconds += time_result.days * 24 * 3600 + time_result.seconds
 
     seconds = seconds / count_issue
     minutes, seconds_ = divmod(seconds, 60)
