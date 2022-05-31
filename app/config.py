@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,14 +10,23 @@ class AppConfigError(Exception):
 
 
 class AppConfig:
+    # DISCORD BOT
     AUTH_TOKEN: str
     COMMAND_PREFIX: str = "!"
+
+    # GITHUB
     SCM_PROVIDER: str = "github"
     GITHUB_BASE_URL: str = "https://github.com"
     GITHUB_PAT: str
     GITHUB_ORG: str
+
+    # YOUTRACK
     YOUTRACK_TOKEN: str
     YOUTRACK_BASE_URL: str
+    YOUTRACK_QUERY_FIELDS: str
+    SOLVE_WEEK: str
+    SOLVE_BUGS_PROJECT: str
+    SOLVE_BUGS_PROD: str
 
     """
     Map environment variables to class fields according to these rules:

@@ -17,7 +17,7 @@ def issues_count(issues: list):
     try:
         if isinstance(issues, list):
             result = issues.__len__()
-            if result == 0:
+            if result == None or result == 0:
                 return 0
             return f"**Total:**  {result}"
     except:

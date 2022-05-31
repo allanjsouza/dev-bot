@@ -1,7 +1,12 @@
 from discord import Embed
 from discord.ext import commands
 
+from app.config import Config
 from app.services.youtrack import call_api, handle_data
+
+SOLVE_WEEK = Config.SOLVE_WEEK
+SOLVE_BUGS_PROJECT = Config.SOLVE_BUGS_PROJECT
+SOLVE_BUGS_PROD = Config.SOLVE_BUGS_PROD
 
 
 class YouTrack(commands.Cog):
@@ -16,11 +21,11 @@ class YouTrack(commands.Cog):
 
     async def greet(self, ctx, fellow):
         async with ctx.typing():
-            solve_week = call_api.url("7-53")
+            solve_week = call_api.url(SOLVE_WEEK)
 
-            solve_bugs_project = call_api.url("7-55")
+            solve_bugs_project = call_api.url(SOLVE_BUGS_PROJECT)
 
-            solve_bugs_prod = call_api.url("7-54")
+            solve_bugs_prod = call_api.url(SOLVE_BUGS_PROD)
 
             story_points = handle_data.get_story_point(call_api.get(solve_week))
 

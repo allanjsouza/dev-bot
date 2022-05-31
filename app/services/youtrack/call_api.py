@@ -5,6 +5,7 @@ from app.config import Config
 
 BASE_URL = Config.YOUTRACK_BASE_URL
 BEARER_TOKEN = Config.YOUTRACK_TOKEN
+YOUTRACK_QUERY_FIELDS = Config.YOUTRACK_QUERY_FIELDS
 
 
 def get(query_url: str):
@@ -22,4 +23,4 @@ def get(query_url: str):
 
 
 def url(query_id: str):
-    return f"/savedQueries/{query_id}?fields=issues(idReadable,id,created,resolved,summary,customFields(name,value(name)),project(name))"
+    return f"/savedQueries/{query_id}?fields=" + YOUTRACK_QUERY_FIELDS
