@@ -14,14 +14,12 @@ def get_story_point(issues: list):
 
 
 def issues_count(issues: list):
-    try:
-        if isinstance(issues, list):
-            result = issues.__len__()
-            if result == None or result == 0:
-                return 0
-            return f"**Total:**  {result}"
-    except:
-        __error_message(issues)
+    if isinstance(issues, list):
+        result = issues.__len__()
+        if result == None or result == 0:
+            return 0
+        return f"**Total:**  {result}"
+
 
 
 def critical_level(issues: list):
