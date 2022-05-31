@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from tracemalloc import stop
 
 
 def get_story_point(issues: list):
@@ -13,41 +14,61 @@ def get_story_point(issues: list):
 
 
 def issues_count(issues: list):
-    if isinstance(issues, list):
-        return issues.__len__()
-    __error_message(issues)
+    try:
+        if isinstance(issues, list):
+            result = issues.__len__()
+            if result == 0:
+                return 0
+            return f"**Total:**  {result}"
+    except:
+        __error_message(issues)
 
 
 def critical_level(issues: list):
+    stopper_message = ""
+    total_issues = 0
+
+    minor = 0
+    normal = 0
+    major = 0
+    critical = 0
+    stopper = 0
+
     try:
-        total_issues = 0
-        minor = 0
-        normal = 0
-        major = 0
-        critical = 0
+        if issues == []:
+            return 0
 
         for issue in issues:
             total_issues += 1
             result = __critical_level(issue)
 
-            if result == "Normal":
+            if result == "3 - Normal":
                 normal += 1
-            elif result == "Major":
+            elif result == "2 - Major":
                 major += 1
-            elif result == "Critical":
+            elif result == "1 - Critical":
                 critical += 1
+            elif result == "0 - Show-stopper":
+                stopper += 1
             else:
                 minor += 1
 
-        return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n **Total: {total_issues}**"
+            if stopper != 0:
+                stopper_message = f"Stopper: {stopper}\n"
+
+        return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n{stopper_message}**Total:** {total_issues}"
     except BaseException:
         __error_message(issues)
 
 
 def solve_time_bugs(issues: list):
     try:
-        days, hours, minutes, seconds, total_issues = __solve_time_bugs(issues)
+        if issues == []:
+            return 0
+
+        days, hours, minutes, total_issues = __solve_time_bugs(issues)
         return f"Days: {int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\n**Total: {total_issues}**"
+
     except BaseException:
         __error_message(issues)
 
@@ -68,6 +89,8 @@ def __story_points(issue):
 def __critical_level(issue):
     for item in issue["customFields"]:
         if item["name"] == "Priority":
+            if item["value"]["name"] is None:
+                return
             return item["value"]["name"]
 
 
@@ -92,7 +115,7 @@ def __solve_time_bugs(issues):
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
 
-    return (days, hours, minutes, seconds_, count_issue)
+    return (days, hours, minutes, count_issue)
 
 
 def __unix_to_utc(unix):

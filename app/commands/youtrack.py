@@ -16,43 +16,65 @@ class YouTrack(commands.Cog):
 
     async def greet(self, ctx, fellow):
         async with ctx.typing():
-            test = call_api.url("7-12")
+            solve_week = call_api.url("7-53")
 
-            story_points = handle_data.get_story_point(call_api.get(test))
+            solve_bugs_project = call_api.url("7-55")
 
-            issues_count = handle_data.issues_count(call_api.get(test))
+            solve_bugs_prod = call_api.url("7-54")
 
-            critical_level = handle_data.critical_level(call_api.get(test))
+            story_points = handle_data.get_story_point(call_api.get(solve_week))
 
-            timer_solver_bugs = handle_data.solve_time_bugs(call_api.get(test))
+            bugs_count_in_week = handle_data.issues_count(call_api.get(solve_bugs_prod))
+
+            critical_level = handle_data.critical_level(
+                call_api.get(solve_bugs_project)
+            )
+
+            timer_solver_bugs = handle_data.solve_time_bugs(
+                call_api.get(solve_bugs_prod)
+            )
 
             embed = Embed()
 
             embed.color = 0x00FF00
 
             embed.add_field(
-                name="**Story Point** :sunny:",
-                value=f"Total: {story_points}",
+                name="**Story point this week** :sunny:",
+                value=f"**Total:** {story_points}",
                 inline=False,
             )
 
-            embed.add_field(
-                name="**Bugs In Week** :cloud_rain:",
-                value=f"Total: {issues_count}",
-                inline=False,
-            )
+            if bugs_count_in_week != 0:
+                embed.add_field(
+                    name="**Bugs in week** :cloud_rain:",
+                    value=bugs_count_in_week,
+                    inline=False,
+                )
+            else:
+                embed.add_field(
+                    name="**Don't have bugs in week** :tada:",
+                    value=":rocket:",
+                    inline=False,
+                )
 
-            embed.add_field(
-                name="**Bugs Production By Priority** :ocean:",
-                value=critical_level,
-                inline=False,
-            )
+            if timer_solver_bugs != 0 and critical_level != 0:
+                embed.add_field(
+                    name="**Production bugs by priority this week** :ocean:",
+                    value=critical_level,
+                    inline=False,
+                )
 
-            embed.add_field(
-                name="**Average Time Solve Bugs in Production** :timer:",
-                value=timer_solver_bugs,
-                inline=False,
-            )
+                embed.add_field(
+                    name="**Average time solve bugs in production this week** :timer:",
+                    value=timer_solver_bugs,
+                    inline=False,
+                )
+            else:
+                embed.add_field(
+                    name="**Don't have bugs in production** :tada:",
+                    value=":t_rex:",
+                    inline=False,
+                )
 
             embed.set_footer(text="YouTrack Issues")
 
