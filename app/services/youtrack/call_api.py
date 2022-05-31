@@ -22,5 +22,5 @@ def get(query_url: str):
     )
 
 
-def url(query_id: str):
+def query_url(query_id: str):
     return f"/savedQueries/{query_id}?fields=" + YOUTRACK_QUERY_FIELDS

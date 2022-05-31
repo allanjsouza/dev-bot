@@ -21,11 +21,11 @@ class YouTrack(commands.Cog):
 
     async def greet(self, ctx, fellow):
         async with ctx.typing():
-            solve_week = call_api.url(SOLVE_WEEK)
+            solve_week = call_api.query_url(SOLVE_WEEK)
 
-            solve_bugs_project = call_api.url(SOLVE_BUGS_PROJECT)
+            solve_bugs_project = call_api.query_url(SOLVE_BUGS_PROJECT)
 
-            solve_bugs_prod = call_api.url(SOLVE_BUGS_PROD)
+            solve_bugs_prod = call_api.query_url(SOLVE_BUGS_PROD)
 
             story_points = handle_data.get_story_point(call_api.get(solve_week))
 

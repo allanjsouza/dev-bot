@@ -7,7 +7,7 @@ from app.services.youtrack import call_api
 
 
 def url():
-    return call_api.url("21-2")
+    return "/savedQueries/21-2?fields=issues(idReadable)"
 
 
 def success_request():
@@ -19,13 +19,6 @@ def failure_request():
 
 
 class Call_ApiTest(TestCase):
-    def test_get_url(self):
-        expectation_response = (
-            "/savedQueries/21-2?fields=issues(idReadable,id,created,resolved,summary,"
-            "customFields(name,value(name)),project(name))"
-        )
-        assert url() == expectation_response
-
     @mock.patch("app.services.youtrack.call_api.requests.get")
     def test_youtrack_get_success(self, mock_get):
         mock_get.return_value = success_request()
