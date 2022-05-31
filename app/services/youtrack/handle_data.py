@@ -5,10 +5,13 @@ def get_story_point(issues: list):
     try:
         if issues[0]["customFields"] != KeyError:
             for issue in issues:
-                result = __story_points(issue)
-                if result != None:
-                    list_result += result
-            return int(list_result)
+                for item in issue["customFields"]:
+                    if item["name"] == "Story points":
+                        result = item["value"]
+                        if result != None:
+                            list_result += result
+
+            return list_result
     except BaseException:
         __error_message(issues)
 
@@ -76,12 +79,6 @@ def solve_time_bugs(issues: list):
 
 def __error_message(arg):
     raise RuntimeError(f"Invalid Arguments: {arg}")
-
-
-def __story_points(issue: list):
-    for item in issue["customFields"]:
-        if item["name"] == "Story points":
-            return int(item["value"])
 
 
 def __critical_level(issue):
