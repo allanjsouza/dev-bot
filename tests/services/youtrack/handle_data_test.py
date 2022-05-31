@@ -27,6 +27,10 @@ class HandleDataTest(TestCase):
         result = handle_data.issues_count(invalid_arguments())
         assert result == None
 
+    def test_issues_count_empty_list(self):
+        result = handle_data.issues_count([])
+        assert result == 0
+
     def test_get_story_point_valid_arguments(self):
         result = handle_data.get_story_point(valid_arguments())
         assert result == 10
@@ -41,6 +45,32 @@ class HandleDataTest(TestCase):
         result = handle_data.critical_level(valid_arguments())
         assert result == "Minor: 3\nNormal: 0\nMajor: 0\nCritical: 0\n**Total:** 3"
 
+    def test_critical_level_empty_list(self):
+        result = handle_data.critical_level([])
+        assert result == 0
+
+    def test_critical_level_valid_arguments_one_value(self):
+        args = [
+            {
+                "customFields": [{"value": {"name": "3 - Normal"}, "name": "Priority"}]
+            },
+            {
+                "customFields": [{"value": {"name": "2 - Major"}, "name": "Priority"}]
+            },
+            {
+                "customFields": [{"value": {"name": "1 - Critical"}, "name": "Priority"}]
+            },
+            {
+                "customFields": [{"value": {"name": "0 - Show-stopper"}, "name": "Priority"}]
+            },
+            {
+                "customFields": [{"value": {"name": "Minor"}, "name": "Priority"}]
+            }
+        ]
+
+        result = handle_data.critical_level(args)
+        assert result == "Minor: 1\nNormal: 1\nMajor: 1\nCritical: 1\nStopper: 1\n**Total:** 5"
+
     def test_critical_level_invalid_arguments(self):
         with pytest.raises(RuntimeError) as error:
             handle_data.critical_level(invalid_arguments())
@@ -50,6 +80,10 @@ class HandleDataTest(TestCase):
     def test_solve_time_bugs_valid_arguments(self):
         result = handle_data.solve_time_bugs(valid_arguments())
         assert result == "Days: 1\nHours: 4\nMinutes: 52\n**Total: 3**"
+
+    def test_solve_time_bugs_valid_arguments(self):
+        result = handle_data.solve_time_bugs([])
+        assert result == 0
 
     def test_solve_time_bugs_invalid_arguments(self):
         with pytest.raises(RuntimeError) as error:
