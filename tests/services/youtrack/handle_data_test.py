@@ -15,10 +15,6 @@ def invalid_arguments():
     return {"invalid": {"test": "invalid"}}
 
 
-def assert_error(error):
-    assert error == "RuntimeError: Invalid Arguments: {'invalid': {'test': 'invalid'}}"
-
-
 class HandleDataTest(TestCase):
     def test_issues_count_valide_list(self):
         assert handle_data.issues_count(valid_arguments()) == "**Total:**  3"
@@ -47,7 +43,10 @@ class HandleDataTest(TestCase):
         with pytest.raises(RuntimeError) as error:
             handle_data.get_story_point(invalid_arguments())
         error_msg = error.exconly(True)
-        assert_error(error_msg)
+        assert (
+            error_msg
+            == "RuntimeError: \nModule: get_story_point\nData: {'invalid': {'test': 'invalid'}}\nError: 0"
+        )
 
     def test_critical_level_valid_arguments(self):
         result = handle_data.critical_level(valid_arguments())
@@ -92,7 +91,10 @@ class HandleDataTest(TestCase):
         with pytest.raises(RuntimeError) as error:
             handle_data.critical_level(invalid_arguments())
         error_msg = error.exconly(True)
-        assert_error(error_msg)
+        assert (
+            error_msg
+            == "RuntimeError: \nModule: critical_level\nData: {'invalid': {'test': 'invalid'}}\nError: string indices must be integers"
+        )
 
     def test_solve_time_bugs_valid_arguments_and_invalids(self):
         args = [
@@ -102,7 +104,7 @@ class HandleDataTest(TestCase):
         ]
 
         result = handle_data.solve_time_bugs(args)
-        assert result == "Days: -115\nHours: 15\nMinutes: 7\n**Total: 2**"
+        assert result == "Days: -230\nHours: 1\nMinutes: 39\n**Total: 1**"
 
     def test_solve_time_bugs_valid_arguments(self):
         result = handle_data.solve_time_bugs([])
@@ -112,7 +114,10 @@ class HandleDataTest(TestCase):
         with pytest.raises(RuntimeError) as error:
             handle_data.solve_time_bugs(invalid_arguments())
         error_msg = error.exconly(True)
-        assert_error(error_msg)
+        assert (
+            error_msg
+            == "RuntimeError: \nModule: solve_time_bugs\nData: {'invalid': {'test': 'invalid'}}\nError: string indices must be integers"
+        )
 
 
 if __name__ == "__main__":

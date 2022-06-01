@@ -1,19 +1,19 @@
 from datetime import datetime, timedelta
 
+
 def get_story_point(issues: list):
     list_result = 0
     try:
         if issues[0]["customFields"] != KeyError:
             for issue in issues:
-                for item in issue["customFields"]:
-                    if item["name"] == "Story points":
-                        result = item["value"]
-                        if result != None:
-                            list_result += result
+                for customFields in issue["customFields"]:
+                    if customFields["name"] == "Story points":
+                        if customFields["value"] is not None:
+                            list_result += customFields["value"]
 
             return list_result
-    except BaseException:
-        __error_message(issues)
+    except BaseException as error:
+        __error_message("get_story_point", issues, error)
 
 
 def issues_count(issues: list):
@@ -22,7 +22,6 @@ def issues_count(issues: list):
         if result == None or result == 0:
             return 0
         return f"**Total:**  {result}"
-
 
 
 def critical_level(issues: list):
@@ -61,8 +60,8 @@ def critical_level(issues: list):
             return 0
 
         return f"Minor: {minor}\nNormal: {normal}\nMajor: {major}\nCritical: {critical}\n{stopper_message}**Total:** {total_issues}"
-    except BaseException:
-        __error_message(issues)
+    except BaseException as error:
+        __error_message("critical_level", issues, error)
 
 
 def solve_time_bugs(issues: list):
@@ -70,15 +69,20 @@ def solve_time_bugs(issues: list):
         if issues == []:
             return 0
 
-        days, hours, minutes, total_issues = __solve_time_bugs(issues)
+        time_solve_bugs = __solve_time_bugs(issues)
+
+        if time_solve_bugs == 0:
+            return 0
+
+        days, hours, minutes, total_issues = time_solve_bugs
         return f"Days: {int(days)}\nHours: {int(hours)}\nMinutes: {int(minutes)}\n**Total: {total_issues}**"
 
-    except BaseException:
-        __error_message(issues)
+    except BaseException as error:
+        __error_message("solve_time_bugs", issues, error)
 
 
-def __error_message(arg):
-    raise RuntimeError(f"Invalid Arguments: {arg}")
+def __error_message(function, data, exception):
+    raise RuntimeError(f"\nModule: {function}\nData: {data}\nError: {exception}")
 
 
 def __critical_level(issue):
@@ -91,7 +95,7 @@ def __solve_time_bugs(issues):
     seconds = 0
     count_issue = 0
     for issue in issues:
-        if issue["resolved"]:
+        if issue["resolved"] is not None:
             created_at = datetime.strptime(
                 __unix_to_utc(issue["created"]), "%Y-%m-%d %H:%M"
             )
@@ -104,12 +108,13 @@ def __solve_time_bugs(issues):
             time_result = resolved_at - created_at
             seconds += time_result.days * 24 * 3600 + time_result.seconds
 
-    seconds = seconds / count_issue
-    minutes, seconds_ = divmod(seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
+            seconds = seconds / count_issue
+            minutes, seconds_ = divmod(seconds, 60)
+            hours, minutes = divmod(minutes, 60)
+            days, hours = divmod(hours, 24)
 
-    return (days, hours, minutes, count_issue)
+            return (days, hours, minutes, count_issue)
+        return 0
 
 
 def __unix_to_utc(unix):

@@ -29,11 +29,11 @@ class YouTrack(commands.Cog):
 
             story_points = handle_data.get_story_point(call_api.get(solve_week))
 
-            bugs_count_in_week = handle_data.issues_count(call_api.get(solve_bugs_prod))
-
-            critical_level = handle_data.critical_level(
+            bugs_count_in_week = handle_data.issues_count(
                 call_api.get(solve_bugs_project)
             )
+
+            critical_level = handle_data.critical_level(call_api.get(solve_bugs_prod))
 
             timer_solver_bugs = handle_data.solve_time_bugs(
                 call_api.get(solve_bugs_prod)
@@ -57,12 +57,12 @@ class YouTrack(commands.Cog):
                 )
             else:
                 embed.add_field(
-                    name="**Don't have bugs in week** :tada:",
+                    name="**Don't have bugs project in week** :tada:",
                     value=":rocket:",
                     inline=False,
                 )
 
-            if timer_solver_bugs != 0 and critical_level != 0:
+            if timer_solver_bugs != 0 or critical_level != 0:
                 embed.add_field(
                     name="**Production bugs by priority this week** :ocean:",
                     value=critical_level,
