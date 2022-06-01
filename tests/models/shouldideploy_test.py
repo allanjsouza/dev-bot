@@ -1,4 +1,5 @@
 import pytest
+
 from app.models.shouldideploy import ShouldideployMessage
 
 

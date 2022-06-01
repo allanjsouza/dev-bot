@@ -1,9 +1,9 @@
 from discord.ext import commands
 
+from app.helpers.pull_request import generate_embed_from
+from app.models.pull_request import PullRequest
 from app.services.scm import scm
 from app.services.scm.errors import RepoNotFoundError
-from app.models.pull_request import PullRequest
-from app.helpers.pull_request import generate_embed_from
 
 
 def is_draft(pull_request: PullRequest) -> bool:
@@ -17,7 +17,9 @@ class Scm(commands.Cog):
         self._bot = bot
         self._provider = scm.get_provider()
 
-    @commands.command(name="pulls", help="Get the opened pull requests on specified repo")
+    @commands.command(
+        name="pulls", help="Get the opened pull requests on specified repo"
+    )
     async def pulls(self, ctx, repo):
         try:
             open_pulls = self._provider.get_open_pull_requests(repo)

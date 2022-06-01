@@ -1,11 +1,7 @@
 import discord
 from discord.ext import commands
 
-reaction_role_mapping = {
-    "🦖": "member",
-    "🧑‍💻": "tech",
-    "🤙": "oncall"
-}
+reaction_role_mapping = {"🦖": "member", "🧑‍💻": "tech", "🤙": "oncall"}
 
 
 class Reactions(commands.Cog):

@@ -1,20 +1,19 @@
-import pytest
 from unittest import mock
-from app.services import quotes
 
-from support.fixtures.quotes import valid_response_data, error_response_raw
+import pytest
+from support.fixtures.quotes import error_response_raw, valid_response_data
+
+from app.services import quotes
 
 
 @pytest.fixture
 def valid_response():
-    return mock.Mock(
-        **{"ok": True, "json.return_value": [valid_response_data()]})
+    return mock.Mock(**{"ok": True, "json.return_value": [valid_response_data()]})
 
 
 @pytest.fixture
 def error_response():
-    return mock.Mock(**{"ok": False, "status_code": 500,
-                     "raw": error_response_raw()})
+    return mock.Mock(**{"ok": False, "status_code": 500, "raw": error_response_raw()})
 
 
 def test_get_service_name():

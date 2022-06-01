@@ -1,11 +1,8 @@
 from app.config import Config
-from app.services.scm.providers.provider import ScmProvider
 from app.services.scm.providers.github import GithubProvider
+from app.services.scm.providers.provider import ScmProvider
 
-
-PROVIDERS = {
-    "github": GithubProvider
-}
+PROVIDERS = {"github": GithubProvider}
 
 
 def get_provider() -> ScmProvider:

@@ -11,7 +11,7 @@ def pretty_date(past_time: datetime):
     diff_days = diff.days
 
     if diff_days < 0:
-        return ''
+        return ""
 
     if diff_days == 0:
         return __intraday_date(diff.seconds)
