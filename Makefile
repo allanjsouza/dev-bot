@@ -28,5 +28,4 @@ release:
 
 format:
 	@ isort .
-	@ autopep8 --recursive --in-place --aggressive .
 	@ black .
