@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def pretty_date(past_time: datetime):
@@ -44,3 +44,12 @@ def __intraday_date(diff_seconds):
 def __pluralize(value, term, plural_suffix="s"):
     result_term = term if value <= 1 else term + plural_suffix
     return f"{value} {result_term} ago"
+
+
+def week_calcule(date: datetime):
+    now = datetime.utcnow()
+    diff = now - date
+
+    if diff.days < 7 :
+        return True
+    return False
