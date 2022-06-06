@@ -4,8 +4,6 @@ from discord.ext import commands
 
 
 class GitHubTracking(commands.Cog):
-    """App commands"""
-
     def __init__(self, bot):
         self._bot = bot
         self._provider = scm.get_provider()
