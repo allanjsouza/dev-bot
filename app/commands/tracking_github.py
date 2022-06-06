@@ -3,14 +3,14 @@ from discord import Embed
 from discord.ext import commands
 
 
-class Testing(commands.Cog):
+class GitHubTracking(commands.Cog):
     """App commands"""
 
     def __init__(self, bot):
         self._bot = bot
         self._provider = scm.get_provider()
 
-    @commands.command(name="tracking", help="Testing to test?")
+    @commands.command(name="tracking", help="GitHub Tracking Pull Requests")
     async def quote(self, ctx, repo):
         async with ctx.typing():
             (days, hours, mins, total) = self._provider.get_all_pull_requests(repo)
@@ -35,4 +35,4 @@ class Testing(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Testing(bot))
+    bot.add_cog(GitHubTracking(bot))
