@@ -7,10 +7,10 @@ def time_median_return(pulls: list):
     pull_all_total = 0
 
     for item in pulls:
-        if item.merged_at is not None and date.week_calcule(item.created_at):
+        if item.merged_at != None:
             pull_all_total += 1
             count_issue += 1
-            time_result = item.created_at - item.merged_at
+            time_result = item.merged_at - item.created_at
             seconds += time_result.days * 24 * 3600 + time_result.seconds
 
     seconds = seconds / count_issue
