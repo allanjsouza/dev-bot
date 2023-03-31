@@ -17,7 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup env
-        run: cp example.env .env
+        run: |
+          test_var="testing variables"
+          echo $test_var
+          cp example.env .env
+      - name: Try echo var
+        run: |
+          echo "try"
+          echo $test_var
       - name: Tool Versions
         uses: marocchino/tool-versions-action@v1.1.0
         id: tool_versions
@@ -28,6 +35,7 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: |
+          echo $test_var
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest pytest-mock pytest-cov coveralls
