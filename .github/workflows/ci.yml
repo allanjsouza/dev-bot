@@ -19,7 +19,12 @@ jobs:
       - name: Setup env
         run: |
           test_var="testing variables"
+          echo $test_var
           cp example.env .env
+      - name: Try echo var
+        run: |
+          echo "try"
+          echo $test_var
       - name: Tool Versions
         uses: marocchino/tool-versions-action@v1.1.0
         id: tool_versions
